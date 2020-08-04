@@ -1,6 +1,6 @@
 
 // Make connection
-var socket = io.connect('http://localhost:8081');
+var socket = io.connect('http://localhost:3000');
 
 function timestamp(){
   var time = Math.round(new Date().getTime() /1000);
