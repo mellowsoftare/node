@@ -1,32 +1,31 @@
-//v1.0.1
-const express = require('express');
+var express = require('express');
+var socket = require('socket.io');
+var port = process.env.port || 8081;
 
-const socket = require('socket.io');
-const port = process.env.port || 3000;
+// App setup
+var app = express();
+var server = app.listen(port, function(){
+    console.log('listening for requests on port 8081,');
+});
 
-//App Setup
-const app = express();
-
+// Static files
 app.use(express.static('public'));
 
+// Socket setup & pass server
 var io = socket(server);
-
 io.on('connection', (socket) => {
-  console.log('made socket connection', socket.id);
 
-  // Handle chat event
-  socket.on('chat', (data) => {
-    io.sockets.emit('chat', data);
-  });
+    console.log('made socket connection', socket.id);
 
-  // Handle Typing
-  socket.on('typing', (data) => {
-      socket.broadcast.emit('typing', data);
-      console.log(data);
-  });
+    // Handle chat event
+    socket.on('chat', function(data){
+        // console.log(data);
+        io.sockets.emit('chat', data);
+    });
 
-});//End On Connection
+    // Handle typing event
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data);
+    });
 
-var server = app.listen(port, () => {
-  console.log('listening to requests on port 3000');
 });
