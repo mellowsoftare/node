@@ -1,4 +1,3 @@
-//var port = process.env.port || 4000;
 
 // Make connection
 var socket = io.connect('http://localhost:8081');

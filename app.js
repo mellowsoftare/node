@@ -2,10 +2,12 @@ var express = require('express');
 var socket = require('socket.io');
 var port = process.env.port || 8081;
 
+
+
 // App setup
 var app = express();
 var server = app.listen(port, function(){
-    console.log('listening for requests on port 8081,');
+    console.log('listening for requests on port '+port);
 });
 
 // Static files
